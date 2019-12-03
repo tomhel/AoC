@@ -21,7 +21,7 @@ def plot_wire(wire):
         else:
             raise Exception("unknown direction: %s" % direction)
 
-        for i in range(length):
+        for _ in range(length):
             x += dx
             y += dy
             yield x, y
