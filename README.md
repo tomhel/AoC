@@ -4,6 +4,8 @@ Advent of Code
 
 https://adventofcode.com
 
+My solutions for the AoC puzzles, requires Python 3.
+
 # License
 
 The solutions to the puzzles are licensed under the MIT license.
