@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# terminal input: 5
+
 
 def read_value(pc, prog, mode):
     if mode == 0:
