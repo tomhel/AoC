@@ -34,7 +34,7 @@ def execute(prog):
             write_value(pc + 3, prog, modes[0], v1 * v2)
             pc += 4
         elif op == 3:
-            print(">>> ", end='')
+            print(">>> ", end="")
             v1 = int(input())
             write_value(pc + 1, prog, modes[2], v1)
             pc += 2
@@ -45,15 +45,15 @@ def execute(prog):
         elif op == 5:
             v1 = read_value(pc + 1, prog, modes[2])
             if v1 != 0:
-               pc = read_value(pc + 2, prog, modes[1])
+                pc = read_value(pc + 2, prog, modes[1])
             else:
-               pc += 3
+                pc += 3
         elif op == 6:
             v1 = read_value(pc + 1, prog, modes[2])
             if v1 == 0:
-               pc = read_value(pc + 2, prog, modes[1])
+                pc = read_value(pc + 2, prog, modes[1])
             else:
-               pc += 3
+                pc += 3
         elif op == 7:
             v1 = read_value(pc + 1, prog, modes[2])
             v2 = read_value(pc + 2, prog, modes[1])
