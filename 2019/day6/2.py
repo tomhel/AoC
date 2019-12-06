@@ -7,8 +7,8 @@ def find_santa(network, current, depth, parent):
     if "SAN" in routes:
         return depth
 
-    depths = list(filter(None, (find_santa(network, r, depth + 1, current) for r in routes if r != parent)))
-    return None if len(depths) == 0 else min(depths)
+    depths = [find_santa(network, r, depth + 1, current) for r in routes if r != parent]
+    return float("inf") if len(depths) == 0 else min(depths)
 
 
 def find_you(network):
