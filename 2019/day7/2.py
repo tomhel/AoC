@@ -78,12 +78,7 @@ def execute(prog, input_pipe, output_pipe, pid):
 
 def run_permutations(prog):
     for seq in itertools.permutations(range(5, 10)):
-        pipe1 = queue.Queue()
-        pipe2 = queue.Queue()
-        pipe3 = queue.Queue()
-        pipe4 = queue.Queue()
-        pipe5 = queue.Queue()
-
+        pipe1, pipe2, pipe3, pipe4, pipe5 = [queue.Queue() for _ in range(5)]
         pipe_inputs = [pipe1, pipe2, pipe3, pipe4, pipe5]
         pipe_outputs = [pipe2, pipe3, pipe4, pipe5, pipe1]
 
