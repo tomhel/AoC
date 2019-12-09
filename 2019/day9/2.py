@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 
 
-import itertools
-
-
 def read_value(pc, mem, mode, relbase):
     if mode == 0:
         return mem.get(mem.get(pc, 0), 0)
