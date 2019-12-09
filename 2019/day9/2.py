@@ -6,20 +6,20 @@ import itertools
 
 def read_value(pc, mem, mode, relbase):
     if mode == 0:
-        return mem[mem[pc]]
+        return mem.get(mem.get(pc, 0), 0)
     elif mode == 1:
-        return mem[pc]
+        return mem.get(pc, 0)
     elif mode == 2:
-        return mem[mem[pc] + relbase]
+        return mem.get(mem.get(pc, 0) + relbase, 0)
     else:
         raise Exception("unsupported mode for reads: %d" % mode)
 
 
 def write_value(pc, mem, mode, value, relbase):
     if mode == 0:
-        mem[mem[pc]] = value
+        mem[mem.get(pc, 0)] = value
     elif mode == 2:
-        mem[mem[pc] + relbase] = value
+        mem[mem.get(pc, 0) + relbase] = value
     else:
         raise Exception("unsupported mode for writes: %d" % mode)
  
