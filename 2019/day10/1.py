@@ -2,7 +2,6 @@
 
 
 import math
-from decimal import Decimal
 
 
 def plot_asteroids(grid):
@@ -15,19 +14,19 @@ def plot_asteroids(grid):
 def count_visibility(plot):
     for x, y in plot:
         blocked_angles = set()
-        count = 1
+        count = 0
 
         for a, b in plot:
             if (x, y) == (a, b):
                 continue
 
             if y == b:
-                angle = -math.pi
+                angle = -math.pi / 2 if a > x else math.pi / 2
             else:
-                angle = math.atan(Decimal(x - a) / Decimal(y - b))
+                angle = math.atan(float(x - a) / float(y - b))
 
-                if y - b < 0:
-                    angle = angle + math.pi
+                if b > y:
+                    angle += math.pi
 
             if angle not in blocked_angles:
                 blocked_angles.add(angle)
