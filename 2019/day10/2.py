@@ -12,48 +12,47 @@ def plot_asteroids(grid):
 
 
 def count_visibility(plot):
-    for x, y in plot:
+    for origin in plot:
         blocked_angles = set()
         count = 0
 
-        for a, b in plot:
-            if (x, y) == (a, b):
+        for asteroid in plot:
+            if origin == asteroid:
                 continue
 
-            if y == b:
-                angle = -math.pi / 2 if a > x else math.pi / 2
-            else:
-                angle = math.atan(float(x - a) / float(y - b))
-
-                if b > y:
-                    angle += math.pi
+            angle, _, _, _ = measure_asteroid(asteroid, origin)
 
             if angle not in blocked_angles:
                 blocked_angles.add(angle)
                 count += 1
 
-        yield count, (x, y)
+        yield count, origin
 
 
 def analyze_asteroids(plot, origin):
-    x, y = origin
-
-    for a, b in plot:
-        if (x, y) == (a, b):
+    for asteroid in plot:
+        if origin == asteroid:
             continue
 
-        if y == b:
-            angle = math.pi / 2 if a > x else math.pi + math.pi / 2
-        else:
-            angle = math.atan(float(a - x) / float(y - b))
+        yield measure_asteroid(asteroid, origin)
 
-            if b > y:
-                angle += math.pi
-            elif x > a and y > b:
-                angle += math.pi * 2
 
-        distance = math.sqrt((a - x)**2 + (y - b)**2)
-        yield angle, distance, a, b
+def measure_asteroid(asteroid, origin):
+    a, b = asteroid
+    x, y = origin
+
+    if y == b:
+        angle = math.pi / 2 if a > x else math.pi + math.pi / 2
+    else:
+        angle = math.atan(float(a - x) / float(y - b))
+
+        if b > y:
+            angle += math.pi
+        elif x > a and y > b:
+            angle += math.pi * 2
+
+    distance = math.sqrt((a - x) ** 2 + (y - b) ** 2)
+    return angle, distance, a, b
 
 
 def find_visible_asteroids(plot):
