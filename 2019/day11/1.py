@@ -12,9 +12,9 @@ def move(current_dir, turn):
     elif current_dir == "D":
         return ("R", 1, 0) if turn == 0 else ("L", -1, 0)
     elif current_dir == "L":
-        return ("D", 0, -1) if turn == 0 else ("U", 0, 1)
+        return ("D", 0, 1) if turn == 0 else ("U", 0, -1)
     elif current_dir == "R":
-        return ("U", 0, 1) if turn == 0 else ("D", 0, -1)
+        return ("U", 0, -1) if turn == 0 else ("D", 0, 1)
 
 
 def run_robot():
@@ -43,5 +43,6 @@ def run_robot():
         x, y = x + dx, y + dy
 
     return grid
+
 
 print(len(run_robot()))
