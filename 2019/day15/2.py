@@ -4,7 +4,6 @@
 import intcode
 import queue
 import threading
-import sys
 
 
 def get_delta(direction):
