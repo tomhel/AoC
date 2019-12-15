@@ -55,7 +55,7 @@ def find_oxygen_system(grid, pos, move_count, in_pipe, out_pipe):
 
 
 def calc_oxygen_fill_time(grid, pos, time_count, visited):
-    visited[pos] = True
+    visited.add(pos)
     times = [time_count]
     x, y = pos
 
@@ -90,7 +90,7 @@ def run_repair_droid():
 def get_oxygen_time():
     grid = run_repair_droid()
     oxygen_pos = [k for k, v in grid.items() if v == 2][0]
-    fill_time = calc_oxygen_fill_time(grid, oxygen_pos, 0, {})
+    fill_time = calc_oxygen_fill_time(grid, oxygen_pos, 0, set())
     return fill_time
 
 
