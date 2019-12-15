@@ -4,6 +4,7 @@
 import intcode
 import queue
 import threading
+import sys
 
 
 def get_delta(direction):
@@ -54,6 +55,24 @@ def find_oxygen_system(grid, pos, move_count, in_pipe, out_pipe):
     return min(moves)
 
 
+def calc_oxygen_fill_time(grid, pos, time_count, visited):
+    visited[pos] = True
+    times = [time_count]
+    x, y = pos
+
+    for direction in range(1, 5):
+        dx, dy = get_delta(direction)
+        a, b = x + dx, y + dy
+
+        if (a, b) in visited:
+            continue
+
+        if grid.get((a, b), 0) == 1:
+            times.append(calc_oxygen_fill_time(grid, (a, b), time_count + 1, visited))
+
+    return max(times)
+
+
 def run_repair_droid():
     in_pipe = queue.Queue()
     out_pipe = queue.Queue()
@@ -62,11 +81,18 @@ def run_repair_droid():
     t.start()
 
     grid = {(0, 0): 1}
-    moves = find_oxygen_system(grid, (0, 0), 0, in_pipe, out_pipe)
+    find_oxygen_system(grid, (0, 0), 0, in_pipe, out_pipe)
 
     computer.suspend()
     t.join()
-    return moves
+    return grid
 
 
-print(run_repair_droid())
+def get_oxygen_time():
+    grid = run_repair_droid()
+    oxygen_pos = [k for k, v in grid.items() if v == 2][0]
+    fill_time = calc_oxygen_fill_time(grid, oxygen_pos, 0, {})
+    return fill_time
+
+
+print(get_oxygen_time())
