@@ -11,12 +11,6 @@ def find_santa(network, current, depth, parent):
     return float("inf") if len(depths) == 0 else min(depths)
 
 
-def find_you(network):
-    for node, routes in network.items():
-        if "YOU" in routes:
-            return node
-
-
 def construct_network(orbits):
     network = {}
 
@@ -33,4 +27,4 @@ def construct_network(orbits):
 
 data = (x.strip().split(")") for x in open("input"))
 nw = construct_network(data)
-print(find_santa(nw, find_you(nw), 0, None))
+print(find_santa(nw, nw["YOU"][0], 0, None))
