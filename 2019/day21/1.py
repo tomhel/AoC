@@ -2,7 +2,6 @@
 
 
 import intcode
-import queue
 
 
 def deploy_springdroid():
