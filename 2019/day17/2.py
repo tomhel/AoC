@@ -83,34 +83,35 @@ def build_path(capture):
     return path
 
 
-def identify_subroutines(moves):
-    movestr = "".join(moves)
+def identify_subroutines(path):
+    pathstr = "".join(path)
     subroutines = []
     functions = ["A", "B", "C"]
     start = 0
 
     while len(subroutines) < len(functions):
         for i in range(20, 0, -1):
-            routine = movestr[start:i]
+            routine = pathstr[start:i]
 
-            if len(routine) == 0 or len(set(routine).intersection(set(functions))) > 0:
+            if len(routine) == 0:
+                continue
+            elif not routine[-1].isdigit():
+                continue
+            elif len(set(routine).intersection(set(functions))) > 0:
                 continue
 
-            if not routine[-1].isdigit():
-                routine = routine[:-1]
-
-            if movestr.count(routine) > 1:
-                movestr = movestr.replace(routine, functions[len(subroutines)])
+            if pathstr.count(routine) > 1:
+                pathstr = pathstr.replace(routine, functions[len(subroutines)])
                 subroutines.append(routine)
                 start = 0
                 break
 
         start += 1
 
-    return list(movestr), [re.findall("[RL]|\d+", r) for r in subroutines]
+    return list(pathstr), [re.findall("[RL]|\d+", r) for r in subroutines]
 
 
-def ascii_input(data):
+def encode_input(data):
     return [ord(c) for c in ",".join(data) + "\n"]
 
 
@@ -129,9 +130,9 @@ def vacuum_scaffold():
     capture = capture_camera(computer.get_output())
 
     callorder, subroutines = identify_subroutines(build_path(capture))
-    input_logic = ascii_input(callorder) + \
-                  ascii_input(subroutines[0]) + ascii_input(subroutines[1]) + ascii_input(subroutines[2]) + \
-                  ascii_input(["n"])
+    input_logic = encode_input(callorder) + \
+                  encode_input(subroutines[0]) + encode_input(subroutines[1]) + encode_input(subroutines[2]) + \
+                  encode_input(["n"])
 
     prog[0] = 2
     computer = intcode.Computer(prog[:], intcode.BufferIOHandler(input_logic))
