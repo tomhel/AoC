@@ -4,7 +4,7 @@ def load():
 
 
 def simulate(days):
-    fish = [0 for _ in range(9)]
+    fish = [0] * 9
 
     for t in load():
         fish[t] += 1
