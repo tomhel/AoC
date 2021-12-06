@@ -14,7 +14,7 @@ def simulate(days):
         fish[6] += n
         fish.append(n)
 
-    return sum(n for n in fish)
+    return sum(fish)
 
 
 print(simulate(256))
