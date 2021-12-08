@@ -24,7 +24,7 @@ def decode_signal(signal):
                 num[3] = x
             elif len(x) == 6 and 7 in num and 9 in num and num[7].issubset(x) and num[9] != x:
                 num[0] = x
-            elif len(x) == 6 and 8 in num and 1 in num and x.issubset(num[8]) and not num[1].issubset(x):
+            elif len(x) == 6 and 1 in num and not num[1].issubset(x):
                 num[6] = x
             elif len(x) == 5 and 6 in num and x.issubset(num[6]):
                 num[5] = x
