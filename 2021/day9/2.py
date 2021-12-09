@@ -49,9 +49,9 @@ def find_basins():
     basins = []
 
     for pos in low_points:
-        basins.append(get_basin(pos, heightmap, set()))
+        basins.append(len(get_basin(pos, heightmap, set())))
 
-    return reduce(operator.mul, (len(b) for b in sorted(basins, key=lambda x: len(x))[-3:]), 1)
+    return reduce(operator.mul, sorted(basins)[-3:], 1)
 
 
 print(find_basins())
