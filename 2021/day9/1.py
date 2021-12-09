@@ -23,7 +23,7 @@ def calc_risk_level():
     risk = 0
 
     for pos in heightmap:
-        z = heightmap.get(pos)
+        z = heightmap[pos]
 
         if min(get_adjacent_height(pos, heightmap)) > z:
             risk += z + 1

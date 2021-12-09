@@ -42,15 +42,10 @@ def find_basins():
     low_points = []
 
     for pos in heightmap:
-        z = heightmap.get(pos)
-        if min(get_adjacent_height(pos, heightmap)) > z:
+        if min(get_adjacent_height(pos, heightmap)) > heightmap[pos]:
             low_points.append(pos)
 
-    basins = []
-
-    for pos in low_points:
-        basins.append(len(get_basin(pos, heightmap, set())))
-
+    basins = [len(get_basin(pos, heightmap, set())) for pos in low_points]
     return reduce(operator.mul, sorted(basins)[-3:], 1)
 
 
