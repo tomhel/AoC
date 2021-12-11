@@ -18,13 +18,11 @@ def flash(pos, flashed, grid):
 
     for i in range(x - 1, x + 2):
         for j in range(y - 1, y + 2):
-            if (i, j) in flashed or (i, j) not in grid:
-                continue
+            if (i, j) in grid and (i, j) not in flashed:
+                grid[(i, j)] += 1
 
-            grid[(i, j)] += 1
-
-            if grid[(i, j)] > 9:
-                flash((i, j), flashed, grid)
+                if grid[(i, j)] > 9:
+                    flash((i, j), flashed, grid)
 
 
 def simulate(steps):
