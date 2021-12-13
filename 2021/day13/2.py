@@ -1,6 +1,3 @@
-import sys
-
-
 def load():
     with open("input") as f:
         coords, folds = set(), []
