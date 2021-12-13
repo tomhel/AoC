@@ -1,7 +1,3 @@
-from functools import reduce
-import operator
-
-
 def load():
     with open("input") as f:
         data = {}
@@ -45,8 +41,8 @@ def find_basins():
         if min(get_adjacent_height(pos, heightmap)) > heightmap[pos]:
             low_points.append(pos)
 
-    basins = [len(get_basin(pos, heightmap, set())) for pos in low_points]
-    return reduce(operator.mul, sorted(basins)[-3:], 1)
+    basins = sorted(len(get_basin(pos, heightmap, set())) for pos in low_points)
+    return basins[-3] * basins[-2] * basins[-1]
 
 
 print(find_basins())
