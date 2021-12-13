@@ -31,12 +31,12 @@ def fold():
 
 
 def print_letters(coords):
-    sys.stdout.write(chr(27) + "[2J")
-    sys.stdout.flush()
+    xlist, ylist = zip(*coords)
 
-    for x, y in coords:
-        sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (y, x, "#"))
-        sys.stdout.flush()
+    for y in range(max(ylist) + 1):
+        for x in range(max(xlist) + 1):
+            print("#" if (x, y) in coords else " ", end="")
+        print()
 
 
 print_letters(fold())
