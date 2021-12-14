@@ -3,8 +3,7 @@ def load():
         yield next(f).strip()
         next(f)
         for x in f:
-            a, b = x.strip().split(" -> ")
-            yield a, b
+            yield x.strip().split(" -> ")
 
 
 def pair_insertion():
