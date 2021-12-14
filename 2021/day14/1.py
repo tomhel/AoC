@@ -25,8 +25,7 @@ def pair_insertion():
     for e in polymer:
         histogram[e] = histogram.get(e, 0) + 1
 
-    count = sorted(histogram.values())
-    return count[-1] - count[0]
+    return max(histogram.values()) - min(histogram.values())
 
 
 print(pair_insertion())
