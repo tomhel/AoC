@@ -28,7 +28,7 @@ def launch_probe(dx, dy, target_x, target_y):
 
     while True:
         if is_target_miss(x, y, target_x, target_y):
-            return math.inf
+            return -math.inf
         elif is_target_hit(x, y, target_x, target_y):
             return max_height
 
@@ -45,7 +45,7 @@ def num_init_values():
 
     for dx in range(1, target_x[1] + 1):
         for dy in range(-abs(target_y[0]), abs(target_y[0])):
-            count += launch_probe(dx, dy, target_x, target_y) != math.inf
+            count += launch_probe(dx, dy, target_x, target_y) != -math.inf
 
     return count
 
