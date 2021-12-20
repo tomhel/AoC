@@ -65,8 +65,6 @@ def reduce(num):
 def magnitude(num):
     if isinstance(num, Number):
         return num.n
-    elif isinstance(num, list) and isinstance(num[0], Number) and isinstance(num[1], Number):
-        return 3 * num[0].n + 2 * num[1].n
     else:
         return 3 * magnitude(num[0]) + 2 * magnitude(num[1])
 
