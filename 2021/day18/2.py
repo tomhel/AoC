@@ -3,6 +3,8 @@ import copy
 import json
 
 
+# This class simulates a pointer to an integer.
+# Used in explode() to manipulate nearest left/right integer.
 class Number:
     def __init__(self, n):
         self.n = n
