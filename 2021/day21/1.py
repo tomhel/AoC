@@ -7,17 +7,17 @@ def load():
 def play():
     players = list(load())
     score = [0] * len(players)
-    die = 0
+    roll = 0
 
     while True:
         for p in range(len(players)):
-            moves = sum(x % 100 + 1 for x in range(die, die + 3))
-            die += 3
-            pos = (players[p] + moves - 1) % 10 + 1
+            die = sum(x % 100 + 1 for x in range(roll, roll + 3))
+            roll += 3
+            pos = (players[p] + die - 1) % 10 + 1
             players[p] = pos
             score[p] += pos
             if score[p] >= 1000:
-                return min(score) * die
+                return min(score) * roll
 
 
 print(play())
