@@ -6,7 +6,7 @@ def load():
 
 def play():
     players = list(load())
-    score = [0, 0]
+    score = [0] * len(players)
     die = 0
 
     while True:
