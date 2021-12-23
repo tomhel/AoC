@@ -5,6 +5,8 @@ def load():
 
 
 def roll(players, p, score, wins, universes):
+    # Go through all possible sums of three die throws, and how many ways to get them.
+    # For example, there is 1 way to get a sum of 3 (1, 1, 1). 3 ways to get a sum of 4 and so on...
     for die, count in [(3, 1), (4, 3), (5, 6), (6, 7), (7, 6), (8, 3), (9, 1)]:
         score2 = list(score)
         players2 = list(players)
