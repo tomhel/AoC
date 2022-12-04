@@ -26,7 +26,7 @@ def select(shp, strategy):
 
 
 def calc_score():
-    return sum(get_score(s2, s1) for s1, s2 in map(lambda x: (x[0], select(x[0], x[1])), load()))
+    return sum(get_score(select(s1, s2), s1) for s1, s2 in load())
 
 
 print(calc_score())
