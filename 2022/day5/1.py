@@ -7,9 +7,9 @@ def load():
             for i in range(0, len(line), 4):
                 if line[i] == "[":
                     crates = stacks.get(i // 4, [])
-                    crates.append(line[i + 1])
+                    crates.insert(0, line[i + 1])
                     stacks[i // 4] = crates
-        yield {k: list(reversed(v)) for k, v in stacks.items()}
+        yield stacks
         for line in f:
             _, cnt, _, frm, _, to = line.strip().split(" ")
             yield int(cnt), int(frm) - 1, int(to) - 1
