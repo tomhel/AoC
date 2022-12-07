@@ -49,8 +49,7 @@ def build_structure(commands, i, node):
 
 def get_dir_size(node, result):
     size = sum(n.size if n.type == "f" else get_dir_size(n, result) for n in node.children.values())
-    if node.type == "d":
-        result.append(size)
+    result.append(size)
     return size
 
 
