@@ -9,8 +9,7 @@ def load():
 
 def get_score(x, y, grid):
     z, score = grid[(x, y)], 1
-    for i, pos in enumerate([(1, 0), (0, 1), (-1, 0), (0, -1)]):
-        dx, dy = pos
+    for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
         a, b, s = x, y, 0
         while True:
             a, b = a + dx, b + dy
