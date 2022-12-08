@@ -17,11 +17,12 @@ def get_score(x, y, grid):
             c = grid.get((a, b))
             if c is None:
                 break
-            elif c < z:
-                s += 1
             elif c >= z:
                 s += 1
                 break
+            else:
+                s += 1
+
         score *= s
     return score
 
