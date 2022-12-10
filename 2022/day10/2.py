@@ -11,13 +11,15 @@ def get_cycles(instr):
         return 2
 
 
-def execute(program, num_cycles):
+def execute(program):
     cpu_register, cycle_counter = 1, 1
     instr, param, counter = None, None, 0
-    for _ in range(num_cycles):
+    while True:
         yield cycle_counter, cpu_register
         if counter == 0:
-            instr, param = next(program)
+            instr, param = next(program, ("halt", 0))
+            if instr == "halt":
+                break
             counter = get_cycles(instr)
         elif counter == 1:
             if instr == "noop":
@@ -42,7 +44,7 @@ def render(screen):
 
 def run_program():
     screen = ["."] * 240
-    for cycle, sprite in execute(load(), 240):
+    for cycle, sprite in execute(load()):
         draw(sprite, cycle, screen)
     return screen
 

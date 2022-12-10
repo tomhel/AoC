@@ -11,13 +11,15 @@ def get_cycles(instr):
         return 2
 
 
-def execute(program, num_cycles):
+def execute(program):
     cpu_register, cycle_counter = 1, 1
     instr, param, counter = None, None, 0
-    for _ in range(num_cycles):
+    while True:
         yield cycle_counter, cpu_register
         if counter == 0:
-            instr, param = next(program)
+            instr, param = next(program, ("halt", 0))
+            if instr == "halt":
+                break
             counter = get_cycles(instr)
         elif counter == 1:
             if instr == "noop":
@@ -29,7 +31,7 @@ def execute(program, num_cycles):
 
 
 def sum_signal_strengths():
-    return sum(c * v for c, v in execute(load(), 220) if c in (20, 60, 100, 140, 180, 220))
+    return sum(c * v for c, v in execute(load()) if c in (20, 60, 100, 140, 180, 220))
 
 
 print(sum_signal_strengths())
