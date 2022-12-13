@@ -1,7 +1,3 @@
-import math
-import sys
-
-
 def load():
     heightmap = {}
     with open("input") as f:
@@ -11,33 +7,27 @@ def load():
         return heightmap
 
 
-def find_path(pos, heightmap, best, visited, goal):
-    visited.add(pos)
-    if best.get(pos, math.inf) <= len(visited):
-        return math.inf  # shorter path already found to this node.
-    if pos == goal:
-        return len(visited) - 1
-    best[pos] = len(visited)
-    steps = [math.inf]
-    current = heightmap[pos]
-    for dx, dy in [(1, 0), (0, 1), (0, -1), (-1, 0)]:
-        a, b = pos[0] + dx, pos[1] + dy
-        square = heightmap.get((a, b))
-        square = "z" if square == "E" else square
-        if square is None or (a, b) in visited:
+def find_path(start, goal, heightmap):
+    q, visited = [(start, 0)], set()
+    while len(q) > 0:
+        pos, steps = q.pop(0)
+        if pos in visited:
             continue
-        elif ord(square) - 1 <= ord("a" if current == "S" else current):
-            steps.append(find_path((a, b), heightmap, best, set(visited), goal))
-    return min(steps)
+        visited.add(pos)
+        if heightmap[pos] == goal:
+            return steps
+        for dx, dy in [(1, 0), (0, 1), (0, -1), (-1, 0)]:
+            a, b = pos[0] + dx, pos[1] + dy
+            square = heightmap.get((a, b))
+            square = "z" if square == "E" else square
+            if square and ord(square) - 1 <= ord("a" if heightmap[pos] == "S" else heightmap[pos]):
+                q.append(((a, b), steps + 1))
 
 
 def minimum_steps():
-    sys.setrecursionlimit(10**6)
     heightmap = load()
     start = [k for k, v in heightmap.items() if v == "S"][0]
-    goal = [k for k, v in heightmap.items() if v == "E"][0]
-    return find_path(start, heightmap, {}, set(), goal)
+    return find_path(start, "E", heightmap)
 
 
-# takes about 30 seconds to run.
 print(minimum_steps())
