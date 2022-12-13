@@ -15,8 +15,6 @@ def find_path(pos, heightmap, best, visited, goal):
     visited.add(pos)
     if best.get(pos, math.inf) <= len(visited):
         return math.inf  # shorter path already found to this node.
-    if best.get(goal, math.inf) <= len(visited) + abs(pos[0] - goal[0]) + abs(pos[1] - goal[1]):
-        return math.inf  # current path will not lead to a shorter path to goal (manhattan distance).
     if pos == goal:
         return len(visited) - 1
     best[pos] = len(visited)
