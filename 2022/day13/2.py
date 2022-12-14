@@ -1,4 +1,5 @@
 from functools import cmp_to_key
+import json
 
 
 def load():
@@ -9,43 +10,8 @@ def load():
                 yield packet
                 packet = []
                 continue
-            packet.append(row.strip())
+            packet.append(json.loads(row))
         yield packet
-
-
-def parse_list(packet):
-    balanced = ["["]
-    res = ""
-    for token in packet:
-        if token == "[":
-            balanced.append("[")
-        elif token == "]":
-            balanced.pop()
-        if len(balanced) == 0:
-            break
-        res += token
-    return res
-
-
-def parse_packet(packet):
-    res, skip_to = [], 0
-    for i, token in enumerate(packet):
-        if i < skip_to or token == ",":
-            continue
-        elif token.isdigit():
-            for k in range(i + 1, len(packet)):
-                if packet[k].isdigit():
-                    token += packet[k]
-                else:
-                    break
-            res.append(int(token))
-            skip_to = i + len(token)
-        elif token == "[":
-            sub_packet = parse_list(packet[i+1:])
-            sub_res = parse_packet(sub_packet)
-            skip_to = i + len(sub_packet) + 1
-            res.append(sub_res)
-    return res
 
 
 def compare(left, right):
@@ -66,16 +32,12 @@ def compare(left, right):
             i += 1
 
 
-def get_packet(packet):
-    return parse_packet(packet)[0]
-
-
 def find_decoder_key():
-    div_pkt1, div_pkt2 = get_packet("[[2]]"), get_packet("[[6]]")
+    div_pkt1, div_pkt2 = [[2]], [[6]]
     packets = [div_pkt1, div_pkt2]
     for pkt1, pkt2 in load():
-        packets.append(get_packet(pkt1))
-        packets.append(get_packet(pkt2))
+        packets.append(pkt1)
+        packets.append(pkt2)
     packets = sorted(packets, key=cmp_to_key(compare))
     return (packets.index(div_pkt1) + 1) * (packets.index(div_pkt2) + 1)
 
