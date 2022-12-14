@@ -9,7 +9,7 @@ def load():
                 yield packet
                 packet = []
                 continue
-            packet.append(json.loads(row.strip()))
+            packet.append(json.loads(row))
         yield packet
 
 
