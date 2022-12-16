@@ -21,7 +21,7 @@ def positions_without_beacons():
         for sensor, beacon in report:
             sx, sy = sensor
             bx, by = beacon
-            if (sx == x and sy == y) or (bx == x) and (by == y):
+            if (sx == x and sy == y) or (bx == x and by == y):
                 break
             elif abs(sx - x) + abs(sy - y) <= abs(sx - bx) + abs(sy - by):
                 count += 1
