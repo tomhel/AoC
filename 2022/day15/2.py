@@ -36,5 +36,5 @@ def determine_tuning_frequency():
     return x * 4000000 + y
 
 
-# takes about 60 seconds to run.
+# takes about 60 seconds to run, only 2 seconds with pypy
 print(determine_tuning_frequency())

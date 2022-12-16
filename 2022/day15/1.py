@@ -29,5 +29,5 @@ def positions_without_beacons():
     return count
 
 
-# takes about 30 seconds to run.
+# takes about 30 seconds to run, only 2 seconds with pypy
 print(positions_without_beacons())
