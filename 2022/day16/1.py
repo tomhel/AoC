@@ -22,11 +22,11 @@ def estimate_max_pressure(opened, pressure, t, maze):
 
 
 def find_path(valve, opened, pressure, t, visited, maze, best):
+    all_opened = len(opened) == len([v for v in maze if maze[v][0] > 0])
     p = sum(maze[v][0] for v in opened)
-    if t >= 30:
-        pressure += p if t == 30 else 0
-        if pressure > best[0]:
-            best[0] = pressure
+    if t > 30 or all_opened:
+        pressure += p * (31 - t)
+        best[0] = max(pressure, best[0])
         return pressure
     pressure += p
     if estimate_max_pressure(set(opened), pressure, t, maze) <= best[0]:
