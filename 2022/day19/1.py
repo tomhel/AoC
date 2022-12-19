@@ -38,7 +38,7 @@ def estimate_max_geodes(t, robots, inventory):
     return count
 
 
-def blueprint_quality(blueprint, inventory, robots, t, states, best):
+def get_maximum_geode_count(blueprint, inventory, robots, t, states, best):
     if t >= 24:
         best[0] = max(inventory["geode"], best[0])
         return inventory["geode"]
@@ -65,9 +65,9 @@ def blueprint_quality(blueprint, inventory, robots, t, states, best):
         inv = dict(inventory)
         for n, m in r.materials:
             inv[m] = inv[m] - n
-        geodes.append(blueprint_quality(blueprint, inv, robots + [r.type], t + 1, states, best))
+        geodes.append(get_maximum_geode_count(blueprint, inv, robots + [r.type], t + 1, states, best))
     if len(possible_builds) < len(blueprint.robots):
-        geodes.append(blueprint_quality(blueprint, dict(inventory), list(robots), t + 1, states, best))
+        geodes.append(get_maximum_geode_count(blueprint, dict(inventory), list(robots), t + 1, states, best))
     return max(geodes)
 
 
@@ -76,7 +76,7 @@ def blueprint_quality_levels():
     for blueprint in load():
         inventory = {"ore": 0, "clay": 0, "obsidian": 0, "geode": 0}
         robots = ["ore"]
-        q = blueprint_quality(blueprint, inventory, robots, 0, set(), [0])
+        q = get_maximum_geode_count(blueprint, inventory, robots, 0, set(), [0])
         quality += q * blueprint.n
     return quality
 
